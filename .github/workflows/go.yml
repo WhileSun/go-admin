@@ -28,7 +28,7 @@ jobs:
 #      run: go test -v ./...
 
     - name: Upload
-      uses: appleboy/scp-action@main
+      uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.REMOTE_HOST }} # 公网ip
         username: ${{ secrets.REMOTE_USERNAME }} # 用户名
