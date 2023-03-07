@@ -11,6 +11,10 @@ func main() {
 	handler.GET("/test", func(context *gin.Context) {
 		context.String(http.StatusOK, "hello gin delete method")
 	})
+
+	handler.GET("/ping", func(context *gin.Context) {
+		context.String(http.StatusOK, "PONG")
+	})
 	s := &http.Server{
 		Addr:         ":3000",
 		Handler:      handler,
