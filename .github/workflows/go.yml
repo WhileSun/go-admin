@@ -33,7 +33,7 @@ jobs:
         with:
           host: ${{ secrets.REMOTE_HOST }}
           user: ${{ secrets.REMOTE_USERNAME }}
-          pass: ${{ secrets.REMOTE_PASSWORD }}
+          key: ${{ secrets.REMOTE_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
           first_ssh: |-
             rm -rf /home/go-project/*
