@@ -27,11 +27,25 @@ jobs:
 #    - name: Test
 #      run: go test -v ./...
 
+#    - name: Upload # 上传
+#      uses: appleboy/scp-action@master
+#      with:
+#        host: ${{ secrets.REMOTE_HOST }} # 公网ip
+#        username: ${{ secrets.REMOTE_USERNAME }} # 用户名
+#        password: ${{ secrets.REMOTE_PASSWORD }} # 密码
+#        source: "go-admin" # 发送文件
+#        target: "/home/go-project" # 目标目录
+
     - name: Upload # 上传
-      uses: appleboy/scp-action@master
+      uses: cross-the-world/ssh-scp-ssh-pipelines@latest
       with:
-        host: ${{ secrets.REMOTE_HOST }} # 公网ip
-        username: ${{ secrets.REMOTE_USERNAME }} # 用户名
-        password: ${{ secrets.REMOTE_PASSWORD }} # 密码
-        source: "go-admin" # 发送文件
-        target: "/home/go-project" # 目标目录
+        host: ${{ secrets.REMOTE_HOST }}
+        user: ${{ secrets.REMOTE_USERNAME }}
+        pass: ${{ secrets.REMOTE_PASSWORD }}
+        port: ${{ secrets.REMOTE_PORT }}
+        first_ssh:
+          rm -rf /home/go-project/*
+        scp:
+          "./go-admin" => /home/go-project
+        last_ssh:
+          echo $LASTSSH
