@@ -12,7 +12,7 @@ func main() {
 		context.String(http.StatusOK, "hello gin delete method")
 	})
 	s := &http.Server{
-		Addr:         ":8089",
+		Addr:         ":3000",
 		Handler:      handler,
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
