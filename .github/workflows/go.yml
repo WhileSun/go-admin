@@ -27,7 +27,7 @@ jobs:
         run: go env -w CGO_ENABLED=0 && GOOS=linux GOARCH=amd64 go build -v ./...
 
       - name: Upload # 上传
-        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+        uses: alinz/ssh-scp-action@master
         env:
           LASTSSH: "Doing something after copying "
         with:
@@ -35,9 +35,9 @@ jobs:
           user: ${{ secrets.REMOTE_USERNAME }}
           key: ${{ secrets.REMOTE_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
-          first_ssh: |-
+          ssh_before: |-
             rm -rf /home/go-project/*
           scp: |-
               "./go-admin" => /home/go-project
-          last_ssh: |-
+          ssh_after: |-
             echo $LASTSSH
