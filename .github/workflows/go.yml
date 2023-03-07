@@ -14,6 +14,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
@@ -34,9 +35,9 @@ jobs:
           user: ${{ secrets.REMOTE_USERNAME }}
           pass: ${{ secrets.REMOTE_PASSWORD }}
           port: ${{ secrets.REMOTE_PORT }}
-          first_ssh:
+          first_ssh: |-
             rm -rf /home/go-project/*
-          scp:
+          scp: |-
               "./go-admin" => /home/go-project
-          last_ssh:
+          last_ssh: |-
             echo $LASTSSH
