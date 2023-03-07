@@ -32,6 +32,6 @@ jobs:
       with:
         host: ${{ secrets.REMOTE_HOST }} # 公网ip
         username: ${{ secrets.REMOTE_USERNAME }} # 用户名
-        key: ${{ secrets.PRIVATE_KEY }} # 私钥
+        password: ${{ secrets.REMOTE_PASSWORD }} # 密码
         source: "go-admin" # 发送文件
         target: "/home/go-project" # 目标目录
