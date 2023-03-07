@@ -1,5 +1,6 @@
 # This workflow will build a golang project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+# https://github.com/marketplace/actions/ssh-scp-ssh-pipelines
 
 name: Go
 
@@ -14,38 +15,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: 1.19
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
 
-    - name: Build
-      run: go build -v ./...
+      - name: Build
+        run: go build -v ./...
 
-#    - name: Test
-#      run: go test -v ./...
-
-#    - name: Upload # 上传
-#      uses: appleboy/scp-action@master
-#      with:
-#        host: ${{ secrets.REMOTE_HOST }} # 公网ip
-#        username: ${{ secrets.REMOTE_USERNAME }} # 用户名
-#        password: ${{ secrets.REMOTE_PASSWORD }} # 密码
-#        source: "go-admin" # 发送文件
-#        target: "/home/go-project" # 目标目录
-
-    - name: Upload # 上传
-      uses: cross-the-world/ssh-scp-ssh-pipelines@latest
-      with:
-        host: ${{ secrets.REMOTE_HOST }}
-        user: ${{ secrets.REMOTE_USERNAME }}
-        pass: ${{ secrets.REMOTE_PASSWORD }}
-        port: ${{ secrets.REMOTE_PORT }}
-        first_ssh:
-          rm -rf /home/go-project/*
-        scp:
-          "./go-admin" => /home/go-project
-        last_ssh:
-          echo $LASTSSH
+      - name: Upload # 上传
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+        env:
+          LASTSSH: "Doing something after copying"
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          user: ${{ secrets.REMOTE_USERNAME }}
+          pass: ${{ secrets.REMOTE_PASSWORD }}
+          port: ${{ secrets.REMOTE_PORT }}
+          first_ssh:
+            rm -rf /home/go-project/*
+          scp:
+              "./go-admin" => /home/go-project
+          last_ssh:
+            echo $LASTSSH
